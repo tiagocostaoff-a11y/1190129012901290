@@ -13,10 +13,16 @@ const path = require("path");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("loja")
-        .setDescription("Exibe os produtos e preços da loja do SafiraSMP.")
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDescription("Exibe os produtos e preços da loja do SafiraSMP."),
 
     async execute(interaction) {
+
+        if (!interaction.channel.name.includes("・")) {
+            return interaction.reply({
+                content: "❌ Este comando só pode ser usado dentro de um ticket.",
+                ephemeral: true
+            });
+        }
 
         const imagem = new AttachmentBuilder(
             path.join(__dirname, "..", "assets", "boasvindas.png"),
