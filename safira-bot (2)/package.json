@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": "20.18.1"
+  },
   "dependencies": {
     "@discordjs/rest": "^2.6.1",
     "discord-api-types": "^0.38.49",
