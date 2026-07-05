@@ -1,0 +1,29 @@
+{
+  "nomeServidor": "Safira SMP",
+  "guildId": "1523051231595987004",
+  "cor": "#00E5FF",
+
+  "imagem": "./assets/boasvindas.png",
+
+  "canais": {
+    "entrada":    "1523051231621288078",
+    "chat":       "1523051232271401014",
+    "regras":     "1523051231621288079",
+    "anuncios":   "1523111832313925633",
+    "convites":   "1523151587231531108",
+    "sugestoes":       "1523051232502091860",
+    "staffSugestoes":  "1523051232502091861",
+    "sugestoesAceitas":"1523051232502091862",
+    "sugestoesRecusadas":"1523051232502091863"
+  },
+
+  "mensagem": {
+    "titulo": "👋 Bem-vindo(a) ao Safira SMP!",
+    "texto": "Olá {user}, seja muito bem-vindo(a) ao **{server}**!\n\nEsperamos que você aproveite sua estadia e faça muitos amigos.\n\nLeia as regras antes de começar sua aventura!"
+  },
+
+  "boost": {
+    "canal": "1519043728759848990",
+    "cargo": "1510394075860435157"
+  }
+}
