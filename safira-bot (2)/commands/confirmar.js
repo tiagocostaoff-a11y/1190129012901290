@@ -4,7 +4,7 @@ const {
     PermissionFlagsBits
 } = require("discord.js");
 
-const CANAL_VENDAS = "1523051232065749104";
+const CANAL_VENDAS = "1523734460464627954";
 
 const PRODUTOS = {
     // VIPs
