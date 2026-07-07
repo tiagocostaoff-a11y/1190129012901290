@@ -1,61 +1,31 @@
-/**
- * Gerador de payload PIX (EMV QRCPS) para QR Code estático com valor.
- */
-
-function crc16(str) {
-    let crc = 0xFFFF;
-    for (let i = 0; i < str.length; i++) {
-        crc ^= str.charCodeAt(i) << 8;
-        for (let j = 0; j < 8; j++) {
-            crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
-        }
-    }
-    return crc & 0xFFFF;
+function gerarTxid(prefixo = "BOT") {
+    // Pix exige txid alfanumérico, sem espaços/acentos, até 25 caracteres
+    const aleatorio = Math.random().toString(36).substring(2, 10).toUpperCase();
+    return `${prefixo}${Date.now().toString(36).toUpperCase()}${aleatorio}`.substring(0, 25);
 }
 
-function tlv(id, value) {
-    const len = String(value.length).padStart(2, "0");
-    return `${id}${len}${value}`;
-}
-
-function clean(str, maxLen) {
-    return str
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-zA-Z0-9 ]/g, " ")
-        .trim()
-        .substring(0, maxLen);
-}
-
-/**
- * @param {string} pixKey   - Chave PIX
- * @param {string} name     - Nome do beneficiário (max 25 chars)
- * @param {string} city     - Cidade (max 15 chars)
- * @param {number} amount   - Valor em reais
- * @returns {string}        - Payload PIX para gerar QR Code
- */
-function buildPixPayload(pixKey, name, city, amount) {
+function buildPixPayload(pixKey, name, city, amount, txid) {
     const cleanName = clean(name, 25);
     const cleanCity = clean(city, 15);
+    const finalTxid = txid ? clean(txid, 25) : gerarTxid();
 
     const merchantAccount =
         tlv("00", "br.gov.bcb.pix") +
         tlv("01", pixKey);
 
     let payload = "";
-    payload += tlv("00", "01");                     // Payload format indicator
-    payload += tlv("26", merchantAccount);           // Merchant account info
-    payload += tlv("52", "0000");                    // MCC
-    payload += tlv("53", "986");                     // Currency BRL
-    payload += tlv("54", amount.toFixed(2));         // Amount
-    payload += tlv("58", "BR");                      // Country
-    payload += tlv("59", cleanName);                 // Merchant name
-    payload += tlv("60", cleanCity);                 // City
-    payload += tlv("62", tlv("05", "***"));          // Additional data
-    payload += "6304";                               // CRC tag (sem valor ainda)
-
+    payload += tlv("00", "01");
+    payload += tlv("26", merchantAccount);
+    payload += tlv("52", "0000");
+    payload += tlv("53", "986");
+    payload += tlv("54", amount.toFixed(2));
+    payload += tlv("58", "BR");
+    payload += tlv("59", cleanName);
+    payload += tlv("60", cleanCity);
+    payload += tlv("62", tlv("05", finalTxid));   // <-- txid único aqui, no lugar do "***"
+    payload += "6304";
     const crc = crc16(payload).toString(16).toUpperCase().padStart(4, "0");
     return payload + crc;
 }
 
-module.exports = { buildPixPayload };
+module.exports = { buildPixPayload, gerarTxid };
