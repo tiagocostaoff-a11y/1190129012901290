@@ -4,7 +4,6 @@ const {
 } = require("discord.js");
 
 const CANAL_AVALIACOES = "1523051232665534546";
-
 const avaliacoesUsadas = new Set();
 
 const ESTRELAS = {
@@ -39,9 +38,7 @@ module.exports = {
                 .setRequired(true)
                 .setMaxLength(500)
         ),
-
     async execute(interaction) {
-
         const chave = `${interaction.channelId}-${interaction.user.id}`;
 
         if (!interaction.channel.name.includes("・")) {
@@ -72,11 +69,9 @@ module.exports = {
                 .setTitle("📋 Nova Avaliação de Atendimento")
                 .setThumbnail(interaction.guild.iconURL({ dynamic: true, size: 256 }))
                 .addFields(
-                    { name: "Usuário",           value: `${interaction.user}`,   inline: false },
-                    { name: "\u200B",            value: "\u200B",                 inline: false },
-                    { name: "Nota Atendimento",  value: estrelas,                 inline: false },
-                    { name: "\u200B",            value: "\u200B",                 inline: false },
-                    { name: "Comentário",        value: `\`\`\`${comentario}\`\`\``, inline: false }
+                    { name: "Usuário",          value: `${interaction.user}`, inline: false },
+                    { name: "Nota Atendimento", value: estrelas,               inline: false },
+                    { name: "Comentário",       value: `\`\`\`${comentario}\`\`\``, inline: false }
                 )
                 .setFooter({ text: `Canal: #${interaction.channel.name} • ${interaction.user.username}` })
                 .setTimestamp();
@@ -88,6 +83,5 @@ module.exports = {
             content: "✅ Obrigado pela sua avaliação! Ela foi enviada com sucesso.",
             ephemeral: true
         });
-
     }
 };
