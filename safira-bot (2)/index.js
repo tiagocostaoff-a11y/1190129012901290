@@ -4,8 +4,12 @@ const path = require("path");
 const {
     Client,
     Collection,
-    GatewayIntentBits
+    GatewayIntentBits,
+    REST,
+    Routes
 } = require("discord.js");
+
+const config = require("./config.json");
 
 const client = new Client({
     intents: [
@@ -24,6 +28,7 @@ client.inviteCache = new Map();
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, "commands");
+const commandsParaRegistrar = [];
 
 if (fs.existsSync(commandsPath)) {
 
@@ -36,6 +41,7 @@ if (fs.existsSync(commandsPath)) {
         if ("data" in command && "execute" in command) {
 
             client.commands.set(command.data.name, command);
+            commandsParaRegistrar.push(command.data.toJSON());
 
             console.log(`✅ Comando /${command.data.name} carregado!`);
 
@@ -43,6 +49,30 @@ if (fs.existsSync(commandsPath)) {
 
     }
 
+}
+
+// =======================
+// AUTO-REGISTRO DOS SLASH COMMANDS
+// =======================
+
+async function registrarComandos() {
+    try {
+        const rawClientId = process.env.CLIENT_ID || "";
+        const clientId = rawClientId.includes("=") ? rawClientId.split("=").pop() : rawClientId;
+
+        const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
+
+        console.log("🚀 Registrando comandos no servidor (guild)...");
+
+        await rest.put(
+            Routes.applicationGuildCommands(clientId, config.guildId),
+            { body: commandsParaRegistrar }
+        );
+
+        console.log("✅ Comandos registrados com sucesso!");
+    } catch (error) {
+        console.error("❌ Erro ao registrar comandos:", error);
+    }
 }
 
 // =======================
@@ -75,4 +105,7 @@ if (fs.existsSync(eventsPath)) {
 // LOGIN
 // =======================
 
-client.login(process.env.TOKEN);
+(async () => {
+    await registrarComandos();
+    client.login(process.env.TOKEN);
+})();
