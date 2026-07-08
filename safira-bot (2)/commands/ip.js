@@ -32,7 +32,6 @@ module.exports = {
 
 💻 **Java Edition**
 IP: \`${IP_JAVA}\`
-Porta: \`${PORTA_JAVA}\`
 
 📱 **Bedrock Edition**
 IP: \`${IP_BEDROCK}\`
