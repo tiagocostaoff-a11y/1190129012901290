@@ -7,8 +7,7 @@ const {
 
 const path = require("path");
 
-const IP_JAVA       = "br-04.blackhosting.com.br";
-const PORTA_JAVA    = "25605";
+const IP_JAVA       = "br-04.blackhosting.com.br:25605";
 const IP_BEDROCK    = "br-04.blackhosting.com.br";
 const PORTA_BEDROCK = "25605";
 
