@@ -1,5 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
  
+// Canal onde as punições serão postadas (o que você mandou o link)
+const CANAL_PUNICOES_ID = '1523051232065749107';
+ 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('punicao')
@@ -26,9 +29,8 @@ module.exports = {
                     { name: 'Kick', value: 'Kick' },
                     { name: 'Advertência', value: 'Advertência' },
                 ))
-        // Só quem pode usar timeout/expulsar/banir consegue rodar o comando.
-        // Ajuste a permissão abaixo pro cargo de staff do seu servidor, se preferir.
-        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
+        // Só quem tem permissão de Administrador no servidor consegue ver/usar o comando.
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
  
     async execute(interaction) {
         const nick = interaction.options.getString('nick');
@@ -51,7 +53,22 @@ module.exports = {
             .setFooter({ text: 'Safira SMP • Sistema de Punições' })
             .setTimestamp();
  
-        await interaction.reply({ embeds: [embed] });
+        // Busca o canal fixo de punições e manda o embed lá
+        const canal = await interaction.client.channels.fetch(CANAL_PUNICOES_ID).catch(() => null);
+ 
+        if (!canal) {
+            return interaction.reply({
+                content: '❌ Não consegui encontrar o canal de punições. Confere se o bot está no servidor certo e tem acesso ao canal.',
+                ephemeral: true,
+            });
+        }
+ 
+        await canal.send({ embeds: [embed] });
+ 
+        await interaction.reply({
+            content: `✅ Punição registrada em ${canal}.`,
+            ephemeral: true,
+        });
     },
 };
  
