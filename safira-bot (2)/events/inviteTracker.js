@@ -1,5 +1,6 @@
 const { Events, EmbedBuilder } = require("discord.js");
 const config = require("../config.json");
+const { adicionarConvite } = require("../utils/convitesStore");
 
 module.exports = {
     name: Events.GuildMemberAdd,
@@ -27,12 +28,14 @@ module.exports = {
 
             if (usedInvite && usedInvite.inviter) {
 
-                const inviter   = usedInvite.inviter;
-                const totalUses = usedInvite.uses;
+                const inviter = usedInvite.inviter;
+
+                // Soma permanentemente no total do inviter (não depende do convite continuar existindo)
+                const totalPermanente = adicionarConvite(inviter.id);
 
                 const embed = new EmbedBuilder()
                     .setColor("#00E5FF")
-                    .setDescription(`📨 ${inviter} convidou ${member} e agora ${inviter} tem **${totalUses}** convite${totalUses !== 1 ? "s" : ""}!`)
+                    .setDescription(`📨 ${inviter} convidou ${member} e agora ${inviter} tem **${totalPermanente}** convite${totalPermanente !== 1 ? "s" : ""}!`)
                     .setFooter({ text: "SafiraSMP • Invite Tracker" })
                     .setTimestamp();
 
