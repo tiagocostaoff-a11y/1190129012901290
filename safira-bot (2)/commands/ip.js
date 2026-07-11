@@ -7,9 +7,9 @@ const {
 
 const path = require("path");
 
-const IP_JAVA       = "br-01.blackhosting.com.br:30009";
-const IP_BEDROCK    = "br-01.blackhosting.com.br";
-const PORTA_BEDROCK = "30009";
+const IP_JAVA       = "sp-01.blackhosting.com.br:25567";
+const IP_BEDROCK    = "sp-01.blackhosting.com.br";
+const PORTA_BEDROCK = "25567";
 
 module.exports = {
     data: new SlashCommandBuilder()
