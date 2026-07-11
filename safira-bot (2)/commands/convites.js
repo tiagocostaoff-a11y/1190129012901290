@@ -2,6 +2,7 @@ const {
     SlashCommandBuilder,
     EmbedBuilder
 } = require("discord.js");
+const { getTotal } = require("../utils/convitesStore");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -22,18 +23,15 @@ module.exports = {
 
         try {
 
-            const invites = await interaction.guild.invites.fetch();
-
-            const meuInvites = invites.filter(inv => inv.inviter?.id === alvo.id);
-            const total      = meuInvites.reduce((acc, inv) => acc + inv.uses, 0);
+            const total = getTotal(alvo.id);
 
             const embed = new EmbedBuilder()
                 .setColor("#00E5FF")
                 .setTitle("📨 Convites")
                 .setThumbnail(alvo.displayAvatarURL({ dynamic: true }))
                 .addFields(
-                    { name: "👤 Membro",          value: `${alvo}`,          inline: true },
-                    { name: "📨 Total de convites", value: `**${total}**`,    inline: true }
+                    { name: "👤 Membro",          value: `${alvo}`,       inline: true },
+                    { name: "📨 Total de convites", value: `**${total}**`, inline: true }
                 )
                 .setFooter({ text: "SafiraSMP • Invite Tracker" })
                 .setTimestamp();
@@ -43,7 +41,7 @@ module.exports = {
         } catch (err) {
             console.error("Erro ao buscar convites:", err);
             await interaction.editReply({
-                content: "❌ Não foi possível buscar os convites. Verifique se o bot tem permissão de **Gerenciar Servidor**."
+                content: "❌ Não foi possível buscar os convites."
             });
         }
 
