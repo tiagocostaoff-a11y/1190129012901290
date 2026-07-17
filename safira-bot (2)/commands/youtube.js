@@ -4,12 +4,14 @@ const {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  PermissionFlagsBits,
 } = require('discord.js');
- 
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('youtube')
     .setDescription('Cria um card de divulgação do seu canal do YouTube')
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option =>
       option
         .setName('descricao')
@@ -28,19 +30,19 @@ module.exports = {
         .setDescription('Seu nick no Minecraft (pra aparecer a cara e o NameMC)')
         .setRequired(true)
     ),
- 
+
   async execute(interaction) {
     await interaction.deferReply();
- 
+
     const descricao = interaction.options.getString('descricao');
     const link = interaction.options.getString('link');
     const nick = interaction.options.getString('nick');
- 
+
     // Valida o link do YouTube
     if (!/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\//i.test(link)) {
       return interaction.editReply('❌ Manda um link válido do YouTube.');
     }
- 
+
     // Busca a cara do Minecraft pelo nick (via Mojang + Crafatar)
     let mcFace = null;
     try {
@@ -54,7 +56,7 @@ module.exports = {
     } catch (err) {
       console.error('Erro ao buscar skin do Minecraft:', err);
     }
- 
+
     const embed = new EmbedBuilder()
       .setColor('#2b2d31')
       .setAuthor({
@@ -73,7 +75,7 @@ module.exports = {
       .setThumbnail(mcFace) // fica null se não achar o nick, o embed ignora
       .setFooter({ text: 'Divulgação de canal' })
       .setTimestamp();
- 
+
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setLabel('Ir para o canal')
@@ -86,7 +88,7 @@ module.exports = {
         .setURL(`https://namemc.com/profile/${encodeURIComponent(nick)}`)
         .setEmoji('🧱')
     );
- 
+
     await interaction.editReply({ embeds: [embed], components: [row] });
   },
 };
