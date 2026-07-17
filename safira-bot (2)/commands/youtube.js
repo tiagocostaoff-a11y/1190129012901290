@@ -43,22 +43,12 @@ module.exports = {
       return interaction.editReply('❌ Manda um link válido do YouTube.');
     }
 
-    // Busca a cara do Minecraft pelo nick (via Mojang + Crafatar)
-    let mcFace = null;
-    try {
-      const mojangRes = await fetch(
-        `https://api.mojang.com/users/profiles/minecraft/${encodeURIComponent(nick)}`
-      );
-      if (mojangRes.ok) {
-        const mojangData = await mojangRes.json();
-        mcFace = `https://crafatar.com/avatars/${mojangData.id}?overlay=true&size=128`;
-      }
-    } catch (err) {
-      console.error('Erro ao buscar skin do Minecraft:', err);
-    }
+    // Busca a cara do Minecraft pelo nick direto (mc-heads.net não depende
+    // da API da Mojang, então evita o erro de "falha ao carregar")
+    const mcFace = `https://mc-heads.net/avatar/${encodeURIComponent(nick)}/128`;
 
     const embed = new EmbedBuilder()
-      .setColor('#2b2d31')
+      .setColor('#00FFFF')
       .setAuthor({
         name: interaction.member?.displayName ?? interaction.user.username,
         iconURL: interaction.user.displayAvatarURL(),
@@ -72,7 +62,7 @@ module.exports = {
           inline: true,
         }
       )
-      .setThumbnail(mcFace) // fica null se não achar o nick, o embed ignora
+      .setThumbnail(mcFace)
       .setFooter({ text: 'Divulgação de canal' })
       .setTimestamp();
 
