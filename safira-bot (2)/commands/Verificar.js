@@ -23,7 +23,7 @@ module.exports = {
         'Para ter acesso completo ao servidor, você precisa se verificar clicando no botão abaixo.\n\n' +
           '**━━━━━━━━━━━━━━━━━━━━**\n\n' +
           '**Ao se verificar você terá acesso a:**\n\n' +
-          '📢 ・ Canais **exclusivos* de anúncios\n\n' +
+          '📢 ・ Canais **exclusivos** de anúncios\n\n' +
           '💬 ・ Canais de chat **gerais**\n\n' +
           '🎮 ・ Canais de **jogos** e **eventos**\n\n' +
           '🎁 ・ Benefícios e **sorteios** exclusivos\n\n' +
