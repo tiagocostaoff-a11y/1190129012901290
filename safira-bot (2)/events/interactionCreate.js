@@ -40,6 +40,7 @@ const TIPOS_TICKET = {
 const PALAVRA_VERIFICACAO = "safirasmp";
 const CARGO_VERIFICADO_ID = "1529233117339189470";
 const CARGO_NAO_VERIFICADO_ID = "1529232839764349020";
+const CARGO_MEMBRO_ID = "1523051231608701069";
 
 // ─── Cache de compras por usuário ─────────────────────────────────────────────
 // client.purchaseCache será inicializado no index.js ou lazy aqui
@@ -598,10 +599,22 @@ module.exports = {
                     if (membro.roles.cache.has(CARGO_NAO_VERIFICADO_ID)) {
                         await membro.roles.remove(CARGO_NAO_VERIFICADO_ID);
                     }
-                    await membro.roles.add(CARGO_VERIFICADO_ID);
+                    await membro.roles.add([CARGO_VERIFICADO_ID, CARGO_MEMBRO_ID]);
+
+                    const embedSucesso = new EmbedBuilder()
+                        .setColor("#2ecc71")
+                        .setTitle("✅ Você verificou com sucesso!")
+                        .setDescription(
+                            `Seja muito bem-vindo(a) ao **${interaction.guild.name}**, ${interaction.user}! 🎉\n\n` +
+                            "Agora você já tem acesso completo aos canais, benefícios e eventos do servidor.\n\n" +
+                            "Aproveite sua estadia e divirta-se! 💎"
+                        )
+                        .setThumbnail(interaction.guild.iconURL({ size: 256 }) ?? null)
+                        .setFooter({ text: "SafiraSMP • Sistema de Verificação" })
+                        .setTimestamp();
 
                     return interaction.reply({
-                        content: "✅ Verificação concluída com sucesso! Bem-vindo(a) ao servidor.",
+                        embeds: [embedSucesso],
                         ephemeral: true
                     });
                 } catch (err) {
