@@ -25,7 +25,7 @@ const {
 
 // ─── Cupons válidos ───────────────────────────────────────────────────────────
 const CUPONS = {
-    "VIPGRATIS20": 20 // 10% de desconto
+    "VIPGRATIS20": 20 // 20% de desconto
 };
 
 // ─── Tipos de ticket ──────────────────────────────────────────────────────────
