@@ -7,8 +7,8 @@ const {
 
 const path = require("path");
 
-const IP_JAVA       = "sp-01.blackhosting.com.br:25567";
-const IP_BEDROCK    = "sp-01.blackhosting.com.br";
+const IP_JAVA       = "safirasmp.blackhosting.com.br";
+const IP_BEDROCK    = "safirasmp.blackhosting.com.br";
 const PORTA_BEDROCK = "25567";
 
 module.exports = {
