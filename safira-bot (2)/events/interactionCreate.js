@@ -25,7 +25,7 @@ const {
 
 // ─── Cupons válidos ───────────────────────────────────────────────────────────
 const CUPONS = {
-    "ABERTURA10": 10 // 10% de desconto
+    "VIPGRATIS20": 20 // 10% de desconto
 };
 
 // ─── Tipos de ticket ──────────────────────────────────────────────────────────
@@ -35,6 +35,11 @@ const TIPOS_TICKET = {
     ticket_denuncia:  { emoji: "🚨", label: "Denúncia"  },
     ticket_suporte:   { emoji: "🖥️", label: "Suporte"   }
 };
+
+// ─── Verificação ───────────────────────────────────────────────────────────────
+const PALAVRA_VERIFICACAO = "safirasmp";
+const CARGO_VERIFICADO_ID = "1529233117339189470";
+const CARGO_NAO_VERIFICADO_ID = "1529232839764349020";
 
 // ─── Cache de compras por usuário ─────────────────────────────────────────────
 // client.purchaseCache será inicializado no index.js ou lazy aqui
@@ -200,6 +205,25 @@ module.exports = {
         if (interaction.isButton()) {
 
             switch (interaction.customId) {
+
+                // ── Verificação ──────────────────────
+                case "botao_verificar": {
+                    const modal = new ModalBuilder()
+                        .setCustomId("modal_verificacao")
+                        .setTitle("Verificação");
+
+                    const inputVerificacao = new TextInputBuilder()
+                        .setCustomId("input_verificacao")
+                        .setLabel(`Digite ${PALAVRA_VERIFICACAO.toUpperCase()} para se verificar`)
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder("Digite aqui...")
+                        .setMinLength(1)
+                        .setMaxLength(50)
+                        .setRequired(true);
+
+                    modal.addComponents(new ActionRowBuilder().addComponents(inputVerificacao));
+                    return interaction.showModal(modal);
+                }
 
                 // ── Boost ────────────────────────────
                 case "boost_loja":
@@ -546,6 +570,48 @@ module.exports = {
         // MODAL SUBMIT
         // ══════════════════════════════════════════════
         if (interaction.isModalSubmit()) {
+
+            // ── Verificação ──────────────────────────
+            if (interaction.customId === "modal_verificacao") {
+                const texto = interaction.fields
+                    .getTextInputValue("input_verificacao")
+                    .trim()
+                    .toLowerCase();
+
+                if (texto !== PALAVRA_VERIFICACAO) {
+                    return interaction.reply({
+                        content: "❌ Palavra incorreta. Clique no botão de verificar e tente novamente.",
+                        ephemeral: true
+                    });
+                }
+
+                const membro = interaction.member;
+
+                if (membro.roles.cache.has(CARGO_VERIFICADO_ID)) {
+                    return interaction.reply({
+                        content: "ℹ️ Você já está verificado!",
+                        ephemeral: true
+                    });
+                }
+
+                try {
+                    if (membro.roles.cache.has(CARGO_NAO_VERIFICADO_ID)) {
+                        await membro.roles.remove(CARGO_NAO_VERIFICADO_ID);
+                    }
+                    await membro.roles.add(CARGO_VERIFICADO_ID);
+
+                    return interaction.reply({
+                        content: "✅ Verificação concluída com sucesso! Bem-vindo(a) ao servidor.",
+                        ephemeral: true
+                    });
+                } catch (err) {
+                    console.error("Erro ao verificar membro:", err);
+                    return interaction.reply({
+                        content: "❌ Não consegui atualizar seus cargos. Verifique se o cargo do bot está acima dos cargos \"Verificado\" e \"Não verificado\".",
+                        ephemeral: true
+                    });
+                }
+            }
 
             // ── Recusar sugestão ──────────────────────
             if (interaction.customId.startsWith("sug_recusar_modal:")) {
