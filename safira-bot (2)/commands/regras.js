@@ -37,8 +37,8 @@ Não é permitido:
 
 **🚫 2. Cheats e vantagens ilegais**
 É proibido utilizar qualquer recurso que conceda vantagem injusta, incluindo mas não se limitando a:
-Fly • Reach • KillAura • AutoTotem • Freecam • Autoclick • Macros • Clients modificados • Minimap com localização de minérios ou estruturas.
-> Observação: X-Ray é liberado somente com o uso de texturas (resourcepacks). Caso sejam identificados clientes externos, não realizaremos desbanimentos.
+Fly • Reach • KillAura • AutoTotem • Freecam • Autoclick • Macros • Clients modificados • Minimap com localização de minérios • estruturas • Xray.
+> Observação: O Xray na primeira punição ira ser de 3 horas mais se você usar novamente a punição vai aumentar para + horas ou ate **dias**!
 Receber ajuda direta de jogadores utilizando esses recursos também poderá resultar em punição.
 
 **🐞 3. Exploração de bugs**
