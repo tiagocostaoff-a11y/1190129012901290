@@ -45,17 +45,21 @@ module.exports = {
         const usuario = interaction.options.getUser("usuario");
 
         const cargoId = CARGOS[cargoEscolhido];
-        const role = interaction.guild.roles.cache.get(cargoId);
 
         // Cabeça da skin via nick (mc-heads.net)
         const skinHead = `https://mc-heads.net/avatar/${encodeURIComponent(nick)}/300`;
 
         const embed = new EmbedBuilder()
             .setColor("#00E5FF")
-            .setDescription(`<@${usuario.id}> entrou na staff como: **${role.name}**`)
+            .setAuthor({ name: "🎖️ Nova Staff — Entrada" })
+            .addFields(
+                { name: "🎮 Jogador", value: nick, inline: true },
+                { name: "🛡️ Dado por", value: `${interaction.user}`, inline: true },
+                { name: "🏷️ Cargo", value: `<@&${cargoId}>`, inline: true }
+            )
             .setThumbnail(skinHead)
             .setFooter({
-                text: "SafiraSMP 💎",
+                text: "SafiraSMP • Sistema de Staff",
                 iconURL: interaction.guild.iconURL({ dynamic: true })
             })
             .setTimestamp();
