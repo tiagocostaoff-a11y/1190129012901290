@@ -45,13 +45,14 @@ module.exports = {
         const usuario = interaction.options.getUser("usuario");
 
         const cargoId = CARGOS[cargoEscolhido];
+        const role = interaction.guild.roles.cache.get(cargoId);
 
         // Cabeça da skin via nick (mc-heads.net)
         const skinHead = `https://mc-heads.net/avatar/${encodeURIComponent(nick)}/300`;
 
         const embed = new EmbedBuilder()
             .setColor("#00E5FF")
-            .setDescription(`<@${usuario.id}> entrou na staff como: <@&${cargoId}>`)
+            .setDescription(`<@${usuario.id}> entrou na staff como: **${role.name}**`)
             .setThumbnail(skinHead)
             .setFooter({
                 text: "SafiraSMP 💎",
