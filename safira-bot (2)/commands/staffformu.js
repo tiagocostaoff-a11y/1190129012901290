@@ -37,7 +37,6 @@ O cargo STAFF permanece ativo enquanto o membro mantiver um bom desempenho, ativ
 Caso cumpra os requisitos e tenha interesse, preencha o formulário abaixo:
 🔗 [**Clique aqui para se candidatar**](https://forms.gle/3NR23fNZjXySuAYa7)`)
             .setThumbnail(interaction.guild.iconURL({ dynamic: true, size: 1024 }))
-            .setImage(interaction.guild.iconURL({ dynamic: true, size: 1024 }))
             .setFooter({
                 text: "SafiraSMP • Recrutamento Staff"
             })
