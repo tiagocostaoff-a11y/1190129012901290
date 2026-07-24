@@ -53,8 +53,8 @@ module.exports = {
             .setColor("#00E5FF")
             .setAuthor({ name: "🎖️ Nova Staff — Entrada" })
             .addFields(
-                { name: "🎮 Jogador", value: nick, inline: true },
-                { name: "🛡️ Dado por", value: `${interaction.user}`, inline: true },
+                { name: "🎮 Jogador", value: `\`${nick}\``, inline: true },
+                { name: "🛡️ Dado por", value: `\`${interaction.user.username}\``, inline: true },
                 { name: "🏷️ Cargo", value: `<@&${cargoId}>`, inline: true }
             )
             .setThumbnail(skinHead)
