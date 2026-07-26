@@ -15,7 +15,6 @@ module.exports = {
         .setDescription("Exibe os produtos e preços da loja do SafiraSMP."),
 
     async execute(interaction) {
-
         if (!interaction.channel.name.includes("・")) {
             return interaction.reply({
                 content: "❌ Este comando só pode ser usado dentro de um ticket.",
@@ -35,19 +34,12 @@ module.exports = {
             .setDescription(
                 "Adquira itens exclusivos e apoie o servidor!\n" +
                 "Todos os itens são entregues automaticamente após a confirmação do pagamento.\n\n" +
-
                 "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
-
                 "**✨ Auras**\n" +
-                "> 🌟 **Aura** — R$ 19,99\n\n" +
-
-                "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
-
-                "**✨ Aura**\n" +
+                "> 🌟 **Aura** — R$ 19,99\n" +
                 "> 💵 **50.000 Aura** — R$ 10,00\n" +
                 "> 💸 **100.000 Aura** — R$ 19,99\n" +
                 "> 🏦 **250.000 Aura** — R$ 39,99\n\n" +
-
                 "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                 "🌐 Acesse a loja: **https://safirasmp.netlify.app/**"
             )
