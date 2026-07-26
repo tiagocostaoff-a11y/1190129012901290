@@ -4,8 +4,7 @@ const {
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle,
-    AttachmentBuilder,
-    PermissionFlagsBits
+    AttachmentBuilder
 } = require("discord.js");
 
 const path = require("path");
@@ -39,33 +38,15 @@ module.exports = {
 
                 "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
 
-                "**🏆 Planos VIP**\n" +
-                "> 💠 **VIP** — R$ 7,50\n" +
-                "> 👑 **Prime** — R$ 16,99\n" +
-                "> 🔴 **Crimson** — R$ 25,90\n" +
-                "> 💜 **Amethyst** — R$ 45,90\n\n" +
+                "**✨ Auras**\n" +
+                "> 🌟 **Aura** — R$ 19,99\n\n" +
 
                 "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
 
-                "**⛏️ Ferramentas**\n" +
-                "> 🪓 **Machado Lenhador** — R$ 17,90\n" +
-                "> ⛏️ **Picareta 3x3** — R$ 19,90\n" +
-                "> 🪣 **Pá 3x3** — R$ 14,90\n\n" +
-
-                "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
-
-                "**🗝️ Chaves**\n" +
-                "> 🔑 **Chave Spawner** — R$ 8,90\n" +
-                "> 🗝️ **Chave Prime** — R$ 14,90\n" +
-                "> 🔴 **Chave Crimson** — R$ 19,90\n" +
-                "> 💜 **Chave Amethyst** — R$ 29,90\n\n" +
-
-                "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
-
-                "**💎 Shards**\n" +
-                "> 💠 **1.000 Shards** — R$ 9,90\n" +
-                "> 💠 **2.300 Shards** — R$ 19,90\n" +
-                "> 💠 **6.000 Shards** — R$ 39,90\n\n" +
+                "**💰 Money**\n" +
+                "> 💵 **5.000 aura** — R$ 10,00\n" +
+                "> 💸 **15.00 aura** — R$ 19,99\n" +
+                "> 🏦 **30.000 aura** — R$ 39,99\n\n" +
 
                 "━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                 "🌐 Acesse a loja: **https://safirasmp.netlify.app/**"
@@ -77,7 +58,7 @@ module.exports = {
         const botoes = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId("loja_comprar")
-                .setLabel("🛒  Comprar")
+                .setLabel("🛒 Comprar")
                 .setStyle(ButtonStyle.Primary)
         );
 
@@ -86,6 +67,5 @@ module.exports = {
             files: [imagem],
             components: [botoes]
         });
-
     }
 };
